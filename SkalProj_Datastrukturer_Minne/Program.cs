@@ -69,13 +69,46 @@
              * As a default case, tell them to use only + or -
              * Below you can see some inspirational code to begin working.
             */
+            Console.Clear();
+            List<string> theList = new List<string>();
+            while (true)
+            {
+                Console.WriteLine("+[item] Add [item]"
+                    + "\n-[item] Remove [item] if it exists"
+                    + "\n0. Go back");
+                string input = Console.ReadLine()!;
+                Console.Clear();
+                char nav = input[0];
+                string value = input.Substring(1);
+                string action = string.Empty;
+                bool quit = false;
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
 
-            //switch(nav){...}
+                switch (nav)
+                {
+                    case '-':
+                        theList.Remove(value);
+                        action = "removed";
+                        break;
+                    case '+':
+                        theList.Add(value);
+                        action = "added";
+                        break;
+                    case '0':
+                        Console.Clear();
+                        Console.WriteLine("See ya...(i know you'll be back)\n");
+                        quit = true;
+                        break;
+                    default:
+                        break;
+                }
+                if (quit)
+                {
+                    break;
+                }
+                Console.WriteLine($"{value} {action}!");
+                Console.WriteLine($"List count: {theList.Count}. List capacity: {theList.Capacity}\n");
+            }
         }
 
         /// <summary>
