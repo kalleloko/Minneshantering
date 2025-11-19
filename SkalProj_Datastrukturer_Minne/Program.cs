@@ -192,7 +192,7 @@
                 {
                     case "-":
                         bool success = theStack.TryPop(out string? dequeued);
-                        Console.WriteLine(success ? $"{dequeued} was taken" : "Could not take anything more");
+                        Console.WriteLine(success ? $"\"{dequeued}\" was taken" : "Could not take anything more");
                         break;
                     case "r":
                     case "R":
