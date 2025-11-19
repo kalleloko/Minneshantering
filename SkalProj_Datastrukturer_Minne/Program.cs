@@ -112,7 +112,7 @@
                 }
                 else
                 {
-                    Console.WriteLine($"{value} {action}!");
+                    Console.WriteLine($"\"{value}\" {action}!");
                 }
                 Console.WriteLine($"List count: {theList.Count}. List capacity: {theList.Capacity}\n");
             }
@@ -128,6 +128,41 @@
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+            Console.Clear();
+            Queue<string> theQueue = new();
+            while (true)
+            {
+                Console.WriteLine("[item]. Enqueue [item]"
+                    + "\n-. Dequeue next item"
+                    + "\n0. Go back");
+                string input = Console.ReadLine()!;
+                Console.Clear();
+                bool quit = false;
+
+
+                switch (input)
+                {
+                    case "-":
+                        bool success = theQueue.TryDequeue(out string? dequeued);
+                        Console.WriteLine(success ? $"{dequeued} was dequeued" : "Could not dequeue anything more");
+                        break;
+                    case "0":
+                        Console.Clear();
+                        Console.WriteLine("Bye!\n");
+                        quit = true;
+                        break;
+                    default:
+                        theQueue.Enqueue(input);
+                        Console.WriteLine($"\"{input}\" was enqueued");
+                        break;
+                }
+                if (quit)
+                {
+                    break;
+                }
+                Console.WriteLine(string.Join("\n", theQueue.Select((el, i) => $"{i + 1}. {el}")));
+                Console.WriteLine();
+            }
         }
 
         /// <summary>
