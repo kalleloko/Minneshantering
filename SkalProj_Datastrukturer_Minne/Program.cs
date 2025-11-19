@@ -175,6 +175,59 @@
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+            Console.Clear();
+            Stack<string> theStack = new();
+            while (true)
+            {
+                Console.WriteLine("[item]. Add [item]"
+                    + "\n-. Take next item"
+                    + "\nR. Reverse a text"
+                    + "\n0. Go back");
+                string input = Console.ReadLine()!;
+                Console.Clear();
+                bool quit = false;
+
+
+                switch (input)
+                {
+                    case "-":
+                        bool success = theStack.TryPop(out string? dequeued);
+                        Console.WriteLine(success ? $"{dequeued} was taken" : "Could not take anything more");
+                        break;
+                    case "r":
+                    case "R":
+                        Console.Clear();
+                        Console.WriteLine("Enter text:");
+                        string stringToReverse = Console.ReadLine() ?? string.Empty;
+                        Console.WriteLine(ReverseString(stringToReverse));
+                        break;
+                    case "0":
+                        Console.Clear();
+                        Console.WriteLine("So long cowboy\n");
+                        quit = true;
+                        break;
+                    default:
+                        theStack.Push(input);
+                        Console.WriteLine($"\"{input}\" was added");
+                        break;
+                }
+                if (quit)
+                {
+                    break;
+                }
+                Console.WriteLine(string.Join("\n", theStack.Select((el, i) => $"{i + 1}. {el}")));
+                Console.WriteLine();
+            }
+        }
+
+        private static string ReverseString(string stringToReverse)
+        {
+            Stack<char> stack = new();
+            foreach (char c in stringToReverse)
+            {
+                stack.Push(c);
+            }
+            return string.Join("", stack.Select(c => c).ToArray());
         }
 
         static void CheckParanthesis()
