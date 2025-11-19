@@ -73,8 +73,8 @@
             List<string> theList = new List<string>();
             while (true)
             {
-                Console.WriteLine("+[item] Add [item]"
-                    + "\n-[item] Remove [item] if it exists"
+                Console.WriteLine("+[item]. Add [item]"
+                    + "\n-[item]. Remove [item] if it exists"
                     + "\n0. Go back");
                 string input = Console.ReadLine()!;
                 Console.Clear();
@@ -106,7 +106,14 @@
                 {
                     break;
                 }
-                Console.WriteLine($"{value} {action}!");
+                if (string.IsNullOrEmpty(action))
+                {
+                    Console.WriteLine("Nothing was added or removed...");
+                }
+                else
+                {
+                    Console.WriteLine($"{value} {action}!");
+                }
                 Console.WriteLine($"List count: {theList.Count}. List capacity: {theList.Capacity}\n");
             }
         }
