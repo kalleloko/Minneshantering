@@ -238,6 +238,21 @@
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
 
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Enter a string to check for parenthesis. Or...");
+                Console.WriteLine("0. Go back");
+                string s = Console.ReadLine() ?? string.Empty;
+                BracketsParser parser = new BracketsParser(s);
+
+                if (s == "0")
+                {
+                    Console.WriteLine("  _____\r\n /     \\\r\n| () () |\r\n \\  ^  /\r\n  |||||\r\n  |||||");
+                    break;
+                }
+            }
+
         }
 
     }
