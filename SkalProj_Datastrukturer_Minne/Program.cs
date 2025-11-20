@@ -15,7 +15,8 @@
                     + "\n1. Examine a List"
                     + "\n2. Examine a Queue"
                     + "\n3. Examine a Stack"
-                    + "\n4. CheckParenthesis"
+                    + "\n4. Check Parenthesis"
+                    + "\n5. Check Recursive And Iterative functions"
                     + "\n0. Exit the application");
                 char input = ' '; //Creates the character input to be used with the switch-case below.
                 try
@@ -41,10 +42,9 @@
                     case '4':
                         CheckParanthesis();
                         break;
-                    /*
-                     * Extend the menu to include the recursive 
-                     * and iterative exercises.
-                     */
+                    case '5':
+                        CheckRecursiveAndIterative();
+                        break;
                     case '0':
                         Environment.Exit(0);
                         break;
@@ -52,6 +52,33 @@
                         Console.WriteLine("Please enter some valid input (0, 1, 2, 3, 4)");
                         break;
                 }
+            }
+        }
+
+        private static void CheckRecursiveAndIterative()
+        {
+            Console.Clear();
+            while (true)
+            {
+                Console.WriteLine("Say a number! (Below 40 to keep sane, 0 to Go back)");
+                string input = Console.ReadLine() ?? string.Empty;
+                Console.Clear();
+
+                if (!int.TryParse(input, out int number))
+                {
+                    continue;
+                }
+
+                if (number == 0)
+                {
+                    break;
+                }
+
+                Console.WriteLine($"RecursiveEven({number}) = {RecursiveEven(number)}");
+                Console.WriteLine($"RecursiveFibonacci({number}) = {RecursiveFibonacci(number)}");
+                Console.WriteLine($"IterativeEven({number}) = {IterativeEven(number)}");
+                Console.WriteLine($"IterativeFibonacci({number}) = {IterativeFibonacci(number)}");
+                Console.WriteLine();
             }
         }
 
@@ -287,6 +314,63 @@
 
         }
 
+        public static int RecursiveEven(int n)
+        {
+            if (n <= 0)
+            {
+                return 0;
+            }
+            return RecursiveEven(n - 1) + 2;
+        }
+
+        public static int RecursiveFibonacci(int n)
+        {
+            if (n <= 1)
+            {
+                return 1;
+            }
+            if (n == 2)
+            {
+                return 1;
+            }
+            return RecursiveFibonacci(n - 1) + RecursiveFibonacci(n - 2);
+        }
+
+        public static int IterativeEven(int n)
+        {
+            if (n <= 0)
+            {
+                return 0;
+            }
+            int result = 0;
+            for (int i = 0; i < n; i++)
+            {
+                result += 2;
+            }
+            return result;
+        }
+
+        public static int IterativeFibonacci(int n)
+        {
+            if (n <= 1)
+            {
+                return 1;
+            }
+            if (n == 2)
+            {
+                return 1;
+            }
+            int prev = 1;
+            int result = 1;
+            for (int i = 3; i <= n; i++)
+            {
+                int temp = prev;
+                prev = result;
+                result += temp;
+            }
+            return result;
+        }
     }
+
 }
 
