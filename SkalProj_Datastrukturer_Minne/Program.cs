@@ -219,7 +219,11 @@
                 Console.WriteLine();
             }
         }
-
+        /// <summary>
+        /// Reverse stringToReverse using a stack
+        /// </summary>
+        /// <param name="stringToReverse"></param>
+        /// <returns></returns>
         private static string ReverseString(string stringToReverse)
         {
             Stack<char> stack = new();
@@ -230,6 +234,9 @@
             return string.Join("", stack.Select(c => c).ToArray());
         }
 
+        /// <summary>
+        /// Handle the checking of brackets
+        /// </summary>
         static void CheckParanthesis()
         {
             /*

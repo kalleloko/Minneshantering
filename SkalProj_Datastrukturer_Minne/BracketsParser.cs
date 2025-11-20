@@ -55,6 +55,17 @@ public class BracketsParser
         _s = string.Empty;
     }
 
+    /// <summary>
+    /// Parse the string (if not yet cached) using a stack holding all
+    /// opened bracket groups.
+    /// 
+    /// When an opening bracket is found, a new BracketMatch is pushed
+    /// to the stack, and when correct closing bracket is found, the
+    /// BracketMatch is popped and put in the _parsed list, which
+    /// is returned when done.
+    /// </summary>
+    /// <returns>A list of BracketMatch, containing all groups of brackets</returns>
+    /// <exception cref="FormatException">When string is not well formatted</exception>
     public List<BracketMatch> Parse()
     {
         // Caching. Kan detta göras snyggare?
