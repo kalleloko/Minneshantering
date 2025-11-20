@@ -1,5 +1,6 @@
 ## Datastrukturer och minne
-1. Hur fungerar stacken och heapen? Förklara gärna med exempel eller skiss på dess grundläggande funktion
+
+**1. Hur fungerar stacken och heapen? Förklara gärna med exempel eller skiss på dess grundläggande funktion**
 
 Stack är en datastruktur enligt FILO-princip: Det som läggs där ligger på "en hög", och ska jag plocka något därifrån så plockar jag det översta, alltså det senast tillagda.
 
@@ -11,7 +12,7 @@ Heap är en datastruktur där saker saker som läggs sorteras in på rätt plats
    8   7 6   4
 
 
-2. Vad är Value Types respektive Reference Types och vad skiljer dem åt?
+**2. Vad är Value Types respektive Reference Types och vad skiljer dem åt?**
 
 Reference Types är typer som ärver från System.Object, och sparas på heapen.
 
@@ -51,7 +52,11 @@ o2; // fortfarande 42
 
 Value Types sparas antingen i heapen eller i stacken. En lokal variabel i en metod, tex, sparas i stacken, medan ett field i en klass sparas i dess objekt i heapen.
 
-1. 3. Följande metoder (se bild nedan) genererar olika svar. Den första returnerar 3, den andra returnerar 4, varför?
+**3. Följande metoder (se bild nedan) genererar olika svar. Den första returnerar 3, den andra returnerar 4, varför?**
+
+I första exemplet är x och y av typen int, som är en Value Type. x och y sparas som två separata värden (`x = y` betyder ge x samma numeriska värde som y har).
+
+I andra exemplet är typen en Reference Type, och en tilldelning innebär att referensen till orginal-objektet kopieras. (`x = y` betyder: x ska numera peka mot samma objekt som y pekar)
 
 ## Övning 1: ExamineList()
 1. Skriv klart implementationen av ExamineList-metoden så att undersökningen blir genomförbar.
