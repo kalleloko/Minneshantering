@@ -5,12 +5,13 @@
 Stack är en datastruktur enligt FILO-princip: Det som läggs där ligger på "en hög", och ska jag plocka något därifrån så plockar jag det översta, alltså det senast tillagda.
 
 Heap är en datastruktur där saker saker som läggs sorteras in på rätt plats. Ett binärt, sorterat träd. Det gör att heapen lätt plockar fram det jag frågar efter.
+```
         2
       /   \
      5     3
     / \   / \
    8   7 6   4
-
+```
 
 **2. Vad är Value Types respektive Reference Types och vad skiljer dem åt?**
 
