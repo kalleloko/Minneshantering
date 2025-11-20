@@ -60,9 +60,26 @@ I första exemplet är x och y av typen int, som är en Value Type. x och y spar
 I andra exemplet är typen en Reference Type, och en tilldelning innebär att referensen till orginal-objektet kopieras. (`x = y` betyder: x ska numera peka mot samma objekt som y pekar)
 
 ## Övning 1: ExamineList()
-1. Skriv klart implementationen av ExamineList-metoden så att undersökningen blir genomförbar.
-2. När ökar listans kapacitet? (Alltså den underliggande arrayens storlek)
-3. Med hur mycket ökar kapaciteten?
-4. Varför ökar inte listans kapacitet i samma takt som element läggs till?
-5. Minskar kapaciteten när element tas bort ur listan?
-6. När är det då fördelaktigt att använda en egendefinierad array istället för en lista?
+**1. Skriv klart implementationen av ExamineList-metoden så att undersökningen blir genomförbar.**
+
+Kolla projektet...
+
+**2. När ökar listans kapacitet? (Alltså den underliggande arrayens storlek)**
+
+Kapaciteten ökar med innehållet. När behovet för större kapacitet uppstår så dubblas den.
+
+**3. Med hur mycket ökar kapaciteten?**
+
+Kapaciteten ökar i steg av 2-potenser: 2, 4, 8, 16 osv
+
+**4. Varför ökar inte listans kapacitet i samma takt som element läggs till?**
+
+Ökningen medför en kostnad i beräkningskraft: det måste allokeras minne och kopieras mellan gammal och ny array. 2-potens-intervallen måste vara en approximation av vad som är en rimlig avvägning mellan denna beräkning och minnesanvändning.
+
+**5. Minskar kapaciteten när element tas bort ur listan?**
+
+Nej, inte vad jag ser! Kanske sker regelbundet i någon GC-process vid långlivade applikationer?
+
+**6. När är det då fördelaktigt att använda en egendefinierad array istället för en lista?**
+
+När vi vet från början hur många items vi behöver.
