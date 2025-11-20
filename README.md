@@ -62,7 +62,7 @@ I andra exemplet är typen en Reference Type, och en tilldelning innebär att re
 ## Övning 1: ExamineList()
 **1. Skriv klart implementationen av ExamineList-metoden så att undersökningen blir genomförbar.**
 
-Kolla projektet...
+[Kolla här](https://github.com/kalleloko/Minneshantering/blob/master/SkalProj_Datastrukturer_Minne/Program.cs#L88).
 
 **2. När ökar listans kapacitet? (Alltså den underliggande arrayens storlek)**
 
@@ -83,3 +83,12 @@ Nej, inte vad jag ser! Kanske sker regelbundet i någon GC-process vid långliva
 **6. När är det då fördelaktigt att använda en egendefinierad array istället för en lista?**
 
 När vi vet från början hur många items vi behöver.
+
+## Övning 5 & 6
+
+[Kolla här](https://github.com/kalleloko/Minneshantering/blob/master/SkalProj_Datastrukturer_Minne/Program.cs#L317).
+
+**Utgå ifrån era nyvunna kunskaper om iteration, rekursion och minneshantering. Vilken av ovanstående funktioner är mest minnesvänlig och varför?**
+
+Rekursion skapar ett nytt scope i stacken för varje runda. Med tanke på att en stack måste öka sin kapacitet när items läggs till, borde denna metod vara mer minneskrävande än den iterativa.
+När jag testade metoderna så var det mycket riktigt de rekursiva som tog tid (vilket kan ha berott på helt andra saker än det jag nämnde här ovan, iofs!)
