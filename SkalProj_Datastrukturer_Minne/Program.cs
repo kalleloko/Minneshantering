@@ -238,19 +238,44 @@
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
 
+            Console.Clear();
+            BracketsParser parser = new BracketsParser();
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("Enter a string to check for parenthesis. Or...");
-                Console.WriteLine("0. Go back");
-                string s = Console.ReadLine() ?? string.Empty;
-                BracketsParser parser = new BracketsParser(s);
 
+                Console.WriteLine("Enter a string to check for parenthesis. (0 to go back)\n");
+                string s = Console.ReadLine() ?? string.Empty;
                 if (s == "0")
                 {
-                    Console.WriteLine("  _____\r\n /     \\\r\n| () () |\r\n \\  ^  /\r\n  |||||\r\n  |||||");
+                    Console.WriteLine("  _____\r\n /     \\\r\n| () () |\r\n \\  ^  /\r\n  |||||\r\n  |||||\n");
                     break;
                 }
+
+                parser.String = s;
+                Console.Clear();
+                Console.WriteLine(s + "\n");
+                try
+                {
+                    List<BracketMatch> result = parser.Parse();
+                    Console.WriteLine($"Your string is well formatted!");
+                    Console.WriteLine("Do you want to see it parsed? y/n");
+                    string seeParsed = Console.ReadLine() ?? "n";
+                    if (seeParsed == "y")
+                    {
+                        Console.Clear();
+                        Console.WriteLine(s);
+                        Console.WriteLine(string.Join("\n", result));
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Your string is not well formatted:");
+                    Console.WriteLine(e.Message);
+                }
+
+                Console.WriteLine();
+
+
             }
 
         }

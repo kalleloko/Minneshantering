@@ -1,10 +1,18 @@
-﻿namespace SkalProj_Datastrukturer_Minne;
+﻿
+namespace SkalProj_Datastrukturer_Minne;
 
 public class BracketsParser
 {
     private string _s;
 
-    private List<(int position, string content)> _parsed = [];
+    private List<BracketMatch> _parsed = [];
+
+    private static (char open, char close)[] _bracketPairs =
+    {
+        ('(', ')'),
+        ('[', ']'),
+        ('{', '}')
+    };
 
     private bool _didParse = false;
 
@@ -19,22 +27,119 @@ public class BracketsParser
         }
     }
 
+    private static char[] _openingBrackets = [];
+
+    public static char[] OpeningBrackets
+    {
+        get { return _bracketPairs.Select(pair => pair.open).ToArray(); }
+        private set { _openingBrackets = value; }
+    }
+
+    private static char[] _closingBrackets = [];
+
+    public static char[] ClosingBrackets
+    {
+        get { return _bracketPairs.Select(pair => pair.close).ToArray(); }
+        private set { _closingBrackets = value; }
+    }
+
+
 
     public BracketsParser(string input)
     {
         _s = input;
     }
 
-    public List<(int, string)> Parse()
+    public BracketsParser()
+    {
+        _s = string.Empty;
+    }
+
+    public List<BracketMatch> Parse()
     {
         // Caching. Kan detta göras snyggare?
         if (_didParse)
         {
             return _parsed;
         }
+
+        Stack<BracketMatch> openedBrackets = [];
+        int pos = 0;
+        foreach (char c in _s)
+        {
+            if (MatchWithClosingBracket(c) is char closingBracket)
+            {
+                openedBrackets.Push(new BracketMatch(pos, closingBracket));
+            }
+            else if (IsClosingBracket(c))
+            {
+                BracketMatch currentBracketMatch;
+                try
+                {
+                    currentBracketMatch = openedBrackets.Pop();
+                }
+                catch (InvalidOperationException)
+                {
+                    throw new FormatException(
+                        $"Bracket mismatch, found '{c}' at position {pos} " +
+                        "when expecting none"
+                    );
+                }
+                if (c != currentBracketMatch.StopChar)
+                {
+                    throw new FormatException(
+                        $"Bracket mismatch, found '{c}' at position {pos} " +
+                        $"when expecting '{currentBracketMatch.StopChar}'"
+                    );
+                }
+
+                if (openedBrackets.TryPeek(out var nextBracketMatch))
+                {
+                    nextBracketMatch.Content += currentBracketMatch.Content;
+                }
+
+                currentBracketMatch.Content += c;
+                _parsed.Add(currentBracketMatch);
+
+            }
+            pos++;
+            if (openedBrackets.TryPeek(out var currentMatch))
+            {
+                currentMatch.Content += c;
+            }
+        }
+        if (openedBrackets.Count > 0)
+        {
+            string unclosed = string.Join(" ", openedBrackets.Select(b => b.StopChar));
+            throw new FormatException($"Bracket mismatch, expected following closing brackets: '{unclosed}'");
+        }
+
         _didParse = true;
 
         return _parsed;
     }
 
+    /// <summary>
+    /// Check if char c is one of the closing brackets
+    /// </summary>
+    /// <param name="c"></param>
+    /// <returns></returns>
+    public static bool IsClosingBracket(char c)
+    {
+        return ClosingBrackets.Contains(c);
+    }
+
+    /// <summary>
+    /// If c is an opening bracket, get the matching closing bracket. If not, return null.
+    /// </summary>
+    /// <param name="c">Char to check</param>
+    /// <returns></returns>
+    private static char? MatchWithClosingBracket(char c)
+    {
+        foreach ((char open, char close) in _bracketPairs)
+        {
+            if (c == open) return close;
+        }
+        return null;
+    }
 }
